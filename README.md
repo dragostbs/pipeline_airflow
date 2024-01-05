@@ -13,5 +13,5 @@ Using Python as the main language for building the data pipeline, processing and
 [Python-url]: https://www.python.org/
 [Docker.com]: https://img.shields.io/badge/-DOCKER-DOCKER?style=for-the-badge&logo=Docker&logoColor=blue&color=white
 [Docker-url]: https://www.docker.com/
-[Airflow.com]: https://img.shields.io/badge/-APACHE%20AIRFLOW-APACHE%20AIRFLOW?style=for-the-badge&logo=apacheairflow&logoColor=red&color=grey
+[Airflow.com]: https://img.shields.io/badge/-APACHE%20AIRFLOW-APACHE%20AIRFLOW?style=for-the-badge&logo=apacheairflow&logoColor=white&color=black
 [Airflow-url]: https://airflow.apache.org/
