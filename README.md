@@ -10,6 +10,5 @@ Using Python as the main language for building the data pipeline, processing and
 <!-- MARKDOWN LINKS & IMAGES -->
 [Python.com]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
 [Python-url]: https://www.python.org/
-[Docker.com]: [https://img.shields.io/badge/TensorFlow-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white](https://img.shields.io/badge/-DOCKER-DOCKER?style=for-the-badge&logo=Docker&logoColor=blue&color=white
-)https://img.shields.io/badge/-DOCKER-DOCKER?style=for-the-badge&logo=Docker&logoColor=blue&color=white
+[Docker.com]: https://img.shields.io/badge/-DOCKER-DOCKER?style=for-the-badge&logo=Docker&logoColor=blue&color=white
 [Docker-url]: https://www.docker.com/
