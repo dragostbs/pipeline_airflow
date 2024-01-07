@@ -8,6 +8,7 @@ from airflow.providers.postgres.operators.postgres import PostgresOperator
 from python.post import read_file, transform_data
 from python.get import retrieve_data
 from python.plot import analyzing_data, plot_model
+from python.ml import ml_model
 
 VERSION = '1.0.0'
 
@@ -78,23 +79,34 @@ with DAG(dag_name, default_args=default_args, start_date=datetime(2023, 1, 1), s
             dag=dag
         )
 
+    predict_data = PythonOperator(
+        task_id="predict_data",
+        retries=1,
+        python_callable=ml_model,
+        trigger_rule="all_success",
+        dag=dag
+    )
+
     generate_report = EmailOperator(
         task_id="generate_report",
         to="drrrrragoss@gmail.com",
         subject="Airflow Report Regarding The Analysis",
         files=['/opt/airflow/dags/csv/Report.csv',
             '/opt/airflow/dags/csv/Analysis.csv',
+            '/opt/airflow/dags/csv/Predictions.csv',
+            '/opt/airflow/dags/csv/Metrics.csv',
             '/opt/airflow/dags/images/PairPlot.png',
             '/opt/airflow/dags/images/HistoryProgress.png',
-            '/opt/airflow/dags/images/HeatMap.png'],
+            '/opt/airflow/dags/images/HeatMap.png',
+            '/opt/airflow/dags/images/MLModel.png'],
         html_content="""
-                    <h2>Attached is a report analysis of the transactions made</h2>
-                    <p>There you will find an overview of the data in order <br>
-                    to make new decisions and understand the market</p>
+                    <h2>Attached is a report analysis of the transactions made with AI</h2>
+                    <p>There you will find an overview of the data in order to make new decisions <br>
+                    and understand the market. A Machine Learning is used in order to predict the Profit.</p>
                     """,
         dag=dag
     )
 
 logging.debug(f'DAG {dag_name} - VERSION: {VERSION}')
 
-get_data >> [processing_data] >> ingest_data >> [explore_data] >> generate_report
+get_data >> [processing_data] >> ingest_data >> [explore_data] >> predict_data >> generate_report

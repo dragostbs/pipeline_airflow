@@ -1,5 +1,7 @@
 FROM apache/airflow:latest
 
+USER root
+
 USER airflow
 
 COPY requirements.txt .

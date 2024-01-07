@@ -59,3 +59,10 @@ services:
       - sleep 30 && airflow scheduler
     container_name: airflow_scheduler
     restart: always
+
+  # tensorflow:
+  #   <<: *airflow-common
+  #   image: tensorflow/tensorflow:latest
+  #   container_name: tensorflow_container
+  #   command: tail -f /dev/null
+  #   restart: always
