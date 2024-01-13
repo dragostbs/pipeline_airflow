@@ -1,13 +1,10 @@
 import json
 import logging
 from datetime import date
+from python.tools import get_from_db
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 
 logging.basicConfig(level=logging.INFO)
-
-def serialize_date(obj):
-    if isinstance(obj, date):
-        return obj.isoformat()
 
 def retrieve_data():
     try:
@@ -15,14 +12,7 @@ def retrieve_data():
         sql_file_path = "/opt/airflow/dags/sql/INGEST_DATA.sql"
         conn = postgres_hook.get_conn()
 
-        with open(sql_file_path, "r") as sql_file:
-            sql_query = sql_file.read()
-        logging.info("Executing the query...") 
-        with conn.cursor() as cursor:
-            cursor.execute(sql_query)
-            fetch = cursor.fetchall()
-
-        data = json.dumps(fetch, default=serialize_date)
-        return data
+        json_data, _ = get_from_db(sql_file_path=sql_file_path, conn=conn)
+        return json_data
     except Exception as e:
         print(f"Error - {e}")

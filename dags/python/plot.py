@@ -4,8 +4,9 @@ import json
 import logging
 import matplotlib.pyplot as plt
 import seaborn as sns
-from airflow.providers.postgres.hooks.postgres import PostgresHook
 from python.get import retrieve_data
+from python.tools import get_from_db
+from airflow.providers.postgres.hooks.postgres import PostgresHook
 
 logging.basicConfig(level=logging.INFO)
 
@@ -15,14 +16,8 @@ def analyzing_data():
         sql_file_path = "/opt/airflow/dags/sql/ANALYSIS_DATA.sql"
         conn = postgres_hook.get_conn()
 
-        with open(sql_file_path, "r") as sql_file:
-            sql_query = sql_file.read()
-        logging.info("Executing the query...") 
-        with conn.cursor() as cursor:
-            cursor.execute(sql_query)
-            data_analysis = cursor.fetchall()
-
-        return data_analysis
+        _, query_data = get_from_db(sql_file_path=sql_file_path, conn=conn)
+        return query_data
     except Exception as e:
         print(f"Error - {e}")
 
